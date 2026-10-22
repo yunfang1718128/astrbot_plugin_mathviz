@@ -1,0 +1,13 @@
+name: astrbot_plugin_mathviz
+display_name: 数学排版与绘图
+desc: 把整条回答排成一张白底黑字长图（MathJax 排公式 + Typst 排中文），并提供函数/几何绘图工具
+version: v1.0.0
+author: yunfang1718128
+repo: "https://github.com/yunfang1718128/astrbot_plugin_mathviz"
+astrbot_version: ">=4.26"
+tags:
+  - 数学
+  - 物理
+  - 公式
+  - 绘图
+  - 长图

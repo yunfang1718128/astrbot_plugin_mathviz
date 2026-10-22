@@ -1,0 +1,8 @@
+# AstrBot 安装插件时会依据本文件自动安装
+matplotlib>=3.8
+numpy>=1.24
+Pillow>=10.0
+# 排版引擎：文字排版 + 嵌入公式 SVG
+typst>=0.11
+# 内置 Typst 数学引擎（MathJax 不可用时的兜底；体积很小，建议一起装）
+tylax>=0.3.8

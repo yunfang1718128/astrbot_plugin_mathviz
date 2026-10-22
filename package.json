@@ -1,0 +1,8 @@
+{
+  "name": "astrbot-plugin-mathviz-runtime",
+  "private": true,
+  "description": "MathJax runtime for astrbot_plugin_mathviz (installed into the plugin data dir, not into the plugin source tree)",
+  "dependencies": {
+    "mathjax-full": "^3.2.2"
+  }
+}

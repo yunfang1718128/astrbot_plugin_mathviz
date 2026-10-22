@@ -1,0 +1,104 @@
+{
+  "dpi": {
+    "type": "int",
+    "description": "出图分辨率",
+    "hint": "140 左右在手机上看就够清楚；调到 200 以上图会变大、QQ 上传更慢",
+    "default": 140
+  },
+  "timeout_seconds": {
+    "type": "int",
+    "description": "单次渲染超时（秒）",
+    "hint": "超过就杀掉子进程并回一句“绘图超时”，避免卡住整条回复",
+    "default": 25
+  },
+  "rate_limit_per_minute": {
+    "type": "int",
+    "description": "每人每分钟最多画几张",
+    "hint": "QQ 群消息频控是 20 条/分钟，图也很占条数。填 0 表示不限",
+    "default": 6
+  },
+  "max_expressions": {
+    "type": "int",
+    "description": "单张图最多几条曲线",
+    "default": 4
+  },
+  "default_x_range": {
+    "type": "string",
+    "description": "/画图 指令的默认 x 范围",
+    "default": "-10,10"
+  },
+  "line_width": {
+    "type": "float",
+    "description": "曲线线宽",
+    "default": 2.0
+  },
+  "show_grid": {
+    "type": "bool",
+    "description": "显示网格",
+    "default": true
+  },
+  "font_path": {
+    "type": "string",
+    "description": "中文字体文件路径",
+    "hint": "留空则自动找 /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc；自己塞字体时填绝对路径",
+    "default": ""
+  },
+  "sheet_mode": {
+    "type": "string",
+    "description": "整页排版（含公式的长回答 → 白底黑字一张图）",
+    "hint": "auto = 含公式且超过下方字数才整页；always = 只要含公式就整页；off = 关掉（回到一段文字+几张公式小图）",
+    "options": [
+      "auto",
+      "always",
+      "off"
+    ],
+    "default": "auto"
+  },
+  "sheet_min_chars": {
+    "type": "int",
+    "description": "整页排版的最少字数",
+    "hint": "太短的回答做成大图反而别扭；只对 sheet_mode=auto 生效",
+    "default": 120
+  },
+  "sheet_width_pt": {
+    "type": "int",
+    "description": "整页内容宽度（pt）",
+    "hint": "480 约等于手机上一行 30 多字；嫌窄可以 560",
+    "default": 480
+  },
+  "sheet_font_pt": {
+    "type": "float",
+    "description": "整页字号（pt）",
+    "default": 10.5
+  },
+  "sheet_ppi": {
+    "type": "int",
+    "description": "整页导出分辨率",
+    "hint": "200 在手机上很清晰；太高会让图变大、QQ 上传变慢",
+    "default": 200
+  },
+  "sheet_max_px": {
+    "type": "int",
+    "description": "整页图片的长边上限（像素）",
+    "hint": "超过就自动降分辨率重排，避免一张一万像素的图",
+    "default": 6000
+  },
+  "temp_ttl_seconds": {
+    "type": "int",
+    "description": "生成的图片保留多久（秒）",
+    "hint": "每次画图前顺手清理过期文件；0 表示不清理",
+    "default": 900
+  },
+  "mathjax_dir": {
+    "type": "string",
+    "description": "MathJax 安装目录",
+    "hint": "留空则用 插件数据目录/mathjax；该目录下需要有 node_modules/mathjax-full",
+    "default": ""
+  },
+  "mathjax_auto_install": {
+    "type": "bool",
+    "description": "缺 MathJax 时自动 npm 安装",
+    "hint": "首次整页排版时自动执行 npm i mathjax-full（约 30~60 秒）。关掉则只用内置 Typst 引擎",
+    "default": true
+  }
+}
