@@ -182,7 +182,10 @@ def escape_text(text: str) -> str:
     return _TYPST_SPECIAL.sub(r"\\\1", text)
 
 
-from viz import mathjax
+try:  # 作为包导入（AstrBot 插件）时走相对导入；作为脚本（python -m viz.sheet）时走顶层
+    from . import mathjax
+except ImportError:
+    from viz import mathjax
 
 
 def inline_markup(text: str, spans: list[tuple[str, str]] | None = None,

@@ -183,9 +183,19 @@ class MathVizStar(Star):
         """
         if self._mathjax_checked:
             return
-        self._mathjax_checked = True
 
-        from viz import mathjax as mj
+        # AstrBot 以**包**形式加载插件（`data.plugins.astrbot_plugin_mathviz.main`），
+        # 此时顶层 `viz` 不可导入；测试时又可能是文件路径加载。两边都能跑。
+        try:
+            try:
+                from .viz import mathjax as mj
+            except ImportError:
+                from viz import mathjax as mj
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("[mathviz] 无法导入渲染模块，整页排版将不可用：%s", exc)
+            return
+        # 只有导入成功才标记为已检查，否则下次重试（之前这里写早了，导致一次失败永久跳过）
+        self._mathjax_checked = True
 
         mj.configure(self.mathjax_dir)
         if mj.available():
@@ -328,7 +338,11 @@ class MathVizStar(Star):
             )
             return
 
-        path, error = await self._render_sheet(text)
+        try:
+            path, error = await self._render_sheet(text)
+        except Exception as exc:  # noqa: BLE001 - 整页失败就回退，不能中断回复
+            logger.warning("[mathviz] 整页排版异常，回退普通发送：%s", exc)
+            return
         if error or not path:
             logger.warning("[mathviz] 整页排版失败，回退普通发送：%s", error)
             return
