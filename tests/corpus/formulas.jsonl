@@ -1,0 +1,25 @@
+{"tex": "E=mc^2", "display": false, "expect": "ok"}
+{"tex": "\\frac{1}{2}mv^2", "display": true, "expect": "ok"}
+{"tex": "\\frac{n}{\\beta}I_{n-1}", "display": true, "expect": "ok", "note": "曾渲染成 n/b ηI（粘连）"}
+{"tex": "\\hbar\\omega/2", "display": true, "expect": "ok", "note": "曾让整页崩溃"}
+{"tex": "\\Delta x\\,\\Delta p \\ge \\hbar/2", "display": true, "expect": "ok"}
+{"tex": "\\int_0^\\infty r^n e^{-\\beta r}\\,dr=\\frac{n!}{\\beta^{n+1}}", "display": true, "expect": "ok"}
+{"tex": "\\iint_S \\vec{E}\\cdot d\\vec{S}=\\frac{Q}{\\varepsilon_0}", "display": true, "expect": "ok"}
+{"tex": "\\begin{aligned} mg\\sin\\theta - f &= ma \\\\ N - mg\\cos\\theta &= 0 \\\\ f &= \\mu N \\end{aligned}", "display": true, "expect": "ok", "note": "多行对齐"}
+{"tex": "\\begin{cases} e^{x-1}, & x<1 \\\\ x-1, & x>1 \\end{cases}", "display": true, "expect": "ok"}
+{"tex": "\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}", "display": true, "expect": "ok"}
+{"tex": "\\underbrace{a+b}_{n}", "display": true, "expect": "ok"}
+{"tex": "\\overrightarrow{AB}\\cdot\\vec{v}", "display": true, "expect": "ok"}
+{"tex": "\\lim_{x\\to 0}\\frac{\\sin x}{x}=1", "display": true, "expect": "ok"}
+{"tex": "\\sum_{k=1}^{n}k^2=\\frac{n(n+1)(2n+1)}{6}", "display": true, "expect": "ok"}
+{"tex": "f'(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}", "display": true, "expect": "ok"}
+{"tex": "\\sqrt[3]{V}=\\frac{4}{3}\\pi r^3", "display": true, "expect": "ok"}
+{"tex": "9.8\\,\\mathrm{m/s^{2}}", "display": true, "expect": "ok"}
+{"tex": "\\theta=30^\\circ", "display": true, "expect": "ok"}
+{"tex": "\\text{速度}\\; v=v_0+at", "display": true, "expect": "ok", "note": "公式内中文"}
+{"tex": "x\\in(-\\infty,+\\infty)", "display": false, "expect": "ok"}
+{"tex": "\\therefore a=2,\\ \\because F=ma", "display": true, "expect": "ok"}
+{"tex": "AB\\perp CD,\\ AB\\parallel EF", "display": true, "expect": "ok"}
+{"tex": "\\si{9.8}{m/s^2}", "display": true, "expect": "merror", "note": "siunitx 不支持（已知限制）"}
+{"tex": "\\ce{H2O}", "display": true, "expect": "ok", "note": "mhchem 已内置（AllPackages），化学式可用"}
+{"tex": "\\zzzqqq{x}=1", "display": true, "expect": "merror", "note": "未知命令"}
