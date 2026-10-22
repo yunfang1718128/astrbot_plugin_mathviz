@@ -242,7 +242,14 @@ def markdown_to_typst(md: str, spans: list[tuple[str, str]] | None = None,
 
     text = md.replace("\r\n", "\n")
 
-    # ① 先把块级公式挖出来换成占位符。不能直接放回 `$ ... $`：
+    # ① 把 LaTeX 官方定界符统一成 $/$$。
+    #   模型常写 \(…\) 和 \[…\]（教科书 / LaTeX 风格），而原来只认 $…$，
+    #   这些式子会被当普通文本原样排进图里（线上出现过「两个本征态相差 (e^{iφ}) 的相位」）。
+    text = re.sub(r"\\\[(.+?)\\\]", lambda m: "$$" + m.group(1) + "$$", text, flags=re.S)
+    text = re.sub(r"\\\((.+?)\\\)", lambda m: "$" + m.group(1) + "$", text, flags=re.S)
+    text = text.replace("＄", "$")  # 全角美元符
+
+    # ② 先把块级公式挖出来换成占位符。不能直接放回 `$ ... $`：
     #    后面的行内规则会把 Typst 源码当成 LaTeX 再转一遍（踩过）。
     blocks: list[str] = []
 
@@ -264,7 +271,7 @@ def markdown_to_typst(md: str, spans: list[tuple[str, str]] | None = None,
 
     text = _BLOCK_MATH.sub(_stash, text)
 
-    # ② 逐行处理
+    # ③ 逐行处理
     out: list[str] = []
     for line in text.split("\n"):
         stripped = line.strip()
@@ -296,7 +303,7 @@ def markdown_to_typst(md: str, spans: list[tuple[str, str]] | None = None,
 
     body = re.sub(r"\n{3,}", "\n\n", "\n".join(out)).strip()
 
-    # ③ 占位符换回真正的公式
+    # ④ 占位符换回真正的公式
     body = _FROM_BLOCK.sub(lambda m: "$ " + blocks[int(m.group(1))] + " $", body)
 
     if not body:
