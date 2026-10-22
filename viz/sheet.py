@@ -301,6 +301,17 @@ def markdown_to_typst(md: str, spans: list[tuple[str, str]] | None = None,
     return body
 
 
+def detect_font(extra_font: str = "") -> str:
+    """返回可用的中文字体文件路径；找不到返回空串。"""
+    for candidate in ([extra_font] if extra_font else []) + list(FONT_CANDIDATES):
+        try:
+            if candidate and Path(candidate).exists():
+                return candidate
+        except OSError:
+            continue
+    return ""
+
+
 def _font_setup(extra_font: str = "") -> list[str]:
     """返回 typst.compile 需要的字体路径列表（配置项优先，其次自动探测）。"""
     paths: list[str] = []
@@ -503,6 +514,7 @@ def render_sheet(
     assets: list[dict] = []
     body = markdown_to_typst(markdown, spans=spans, assets=assets)
     mathjax.configure(mathjax_dir or None)
+    font_file = detect_font(font_path)
     font_paths = _font_setup(font_path)
 
     # 公式交给 MathJax 出 SVG，再用 Typst 的 #image() 嵌入
@@ -554,6 +566,7 @@ def render_sheet(
         "shrunk": shrunk,
         "degraded": degraded,
         "repaired": repaired,
+        "font_missing": not font_file,
         "mathjax_ok": mj_ok,
         "mathjax_fail": mj_fail,
         "bytes": len(png),

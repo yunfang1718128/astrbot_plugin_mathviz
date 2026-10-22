@@ -18,21 +18,23 @@
 ## 安装
 
 1. 把本目录放进 AstrBot 的 `data/plugins/`；
-2. 依赖：AstrBot 会自动读 `requirements.txt`（matplotlib / numpy / Pillow / typst / tylax）；
-3. **中文字体**（必需，否则页面上的中文是方框）：
-   - Debian/Ubuntu：`sudo apt install fonts-noto-cjk`
-   - Windows / macOS：系统自带，通常无需处理
-   - 或者把任意中文字体路径填进配置项 `font_path`
-4. **MathJax**（可选，但强烈建议）：需要系统里有 `node` 和 `npm`。
-   插件首次整页排版时会自动执行 `npm i mathjax-full` 到**插件数据目录**（不污染系统），约 30~60 秒。
-   也可以手动装：
+2. **依赖**：AstrBot 会自动读 `requirements.txt`（matplotlib / numpy / Pillow / typst / tylax），无需手动装；
+3. **中文字体**（必需，否则图里的中文是方框）：
 
-   ```bash
-   mkdir -p <AstrBot 数据目录>/plugin_data/astrbot_plugin_mathviz/mathjax
-   cd $_ && npm i mathjax-full
-   ```
+   | 系统 | 做法 |
+   |---|---|
+   | Debian / Ubuntu | `sudo apt install fonts-noto-cjk` |
+   | Windows / macOS | 系统自带，通常无需处理 |
 
-   没装 MathJax 也能用——会自动退回内置 Typst 数学引擎，覆盖率低一些（复杂宏会降级成原文）。
+   也可以把任意中文字体路径填进配置项 `font_path`。插件找不到字体时会在日志里打印安装提示。
+
+4. **MathJax**（可选，强烈建议）：需要系统里有 `node` 和 `npm`。**默认不自动安装**，三选一：
+
+   | 方式 | 做法 | 效果 |
+   |---|---|---|
+   | 手动安装（推荐） | `mkdir -p <数据目录>/plugin_data/astrbot_plugin_mathviz/mathjax && cd $_ && npm i mathjax-full` | 公式覆盖率 ~99% |
+   | 自动安装 | 把配置项 `mathjax_auto_install` 设为 `true`，首次整页排版时联网自动执行上面的命令 | 同上 |
+   | 不安装 | 什么都不做 | 自动退回内置 Typst 数学引擎：常见写法可用，复杂宏会降级成原文 |
 
 ## 配置
 

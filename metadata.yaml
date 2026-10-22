@@ -1,10 +1,23 @@
 name: astrbot_plugin_mathviz
 display_name: 数学排版与绘图
-desc: 把整条回答排成一张白底黑字长图（MathJax 排公式 + Typst 排中文），并提供函数/几何绘图工具
-version: v1.0.0
+short_desc: 把整条回答排成白底黑字长图，并可画函数/几何图
+desc: |
+  把整条回答排版成一张白底黑字长图：公式交给 MathJax（真 TeX 引擎）排版，
+  中文与段落交给 Typst；另提供函数曲线、隐式方程、极坐标、参数方程与几何示意图的绘图工具。
+  可按字数阈值自动触发，也可完全关闭。
+version: 1.0.0
 author: yunfang1718128
-repo: "https://github.com/yunfang1718128/astrbot_plugin_mathviz"
+repo: https://github.com/yunfang1718128/astrbot_plugin_mathviz
 astrbot_version: ">=4.26"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - webchat
+  - lark
+  - dingtalk
+  - discord
+social_link: https://github.com/yunfang1718128
 tags:
   - 数学
   - 物理

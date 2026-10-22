@@ -98,7 +98,7 @@
   "mathjax_auto_install": {
     "type": "bool",
     "description": "缺 MathJax 时自动 npm 安装",
-    "hint": "首次整页排版时自动执行 npm i mathjax-full（约 30~60 秒）。关掉则只用内置 Typst 引擎",
-    "default": true
+    "hint": "默认关闭：首次整页排版时自动执行 npm i mathjax-full（约 30~60 秒，需联网）。关闭时若无 MathJax，会自动退回内置 Typst 数学引擎（覆盖率较低）",
+    "default": false
   }
 }

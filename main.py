@@ -272,6 +272,13 @@ class MathVizStar(Star):
             return None, str(result.get("error") or "未知排版错误")
         if not out_path.exists():
             return None, "排版完成但文件不存在"
+        if result.get("font_missing") and not getattr(self, "_font_warned", False):
+            self._font_warned = True
+            logger.warning(
+                "[mathviz] 未找到中文字体，图里的中文会显示成方框。\n"
+                "  Linux: sudo apt install fonts-noto-cjk\n"
+                "  或在插件配置里把 font_path 指向任意中文字体文件（.ttf/.otf/.ttc）"
+            )
         logger.info("[mathviz] sheet %sx%s %sms", result.get("w"), result.get("h"), result.get("ms"))
         return str(out_path), None
 
