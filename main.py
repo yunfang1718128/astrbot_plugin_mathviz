@@ -302,12 +302,30 @@ class MathVizStar(Star):
 
         chain = list(getattr(result, "chain", []) or [])
         if any(not isinstance(c, Plain) for c in chain):
-            return  # 链里本来就有图片/文件，别动
+            # 链里已经有图片/文件：不整页（否则会和它撞车），但要能看出来为什么跳过
+            logger.info(
+                "[mathviz] 跳过整页：消息链已含非文本组件 %s",
+                sorted({type(c).__name__ for c in chain}),
+            )
+            return
         text = "".join(c.text for c in chain if isinstance(c, Plain))
-        if not text.strip() or not _MATH_HINT.search(text):
+        if not text.strip():
+            logger.info("[mathviz] 跳过整页：正文为空")
+            return
+        if not _MATH_HINT.search(text):
+            logger.info(
+                "[mathviz] 跳过整页：未检测到公式特征（%d 字）｜%s",
+                len(text),
+                text[:40].replace("\n", " "),
+            )
             return
         min_chars = int(self.cfg.get("sheet_min_chars", 120))
         if mode != "always" and len(text) < min_chars:
+            logger.info(
+                "[mathviz] 跳过整页：正文 %d 字 < sheet_min_chars=%d，改用 md_render 逐公式出图",
+                len(text),
+                min_chars,
+            )
             return
 
         path, error = await self._render_sheet(text)
